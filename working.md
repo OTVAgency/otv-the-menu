@@ -16,4 +16,15 @@ Pending: refine paid inclusions, create and verify actual products, approve addi
 - Added free beginner guidance for tools, prompt context, and refining answers.
 - Kept folder structures and the deeper discovery-to-proposal process in the paid Zip; Startup Kush introduces basic quotes and scopes.
 
-Validation and deployment: pending.
+## Validation and publication
+
+- JavaScript syntax check passed with Node.
+- Verified all local anchors, image files, four packs, and original prices.
+- Browser loaded all seven image instances.
+- Phone layout checked at 390 x 844 with no horizontal overflow; adjusted hero spacing for tagline readability.
+- No package manager, lint, or test suite exists. No dependencies added.
+- Repository: https://github.com/OTVAgency/otv-the-menu
+- GitHub Pages configured for main / root, HTTPS, no custom domain.
+- Share URL: https://otvagency.github.io/otv-the-menu/
+- Final live verification pending deployment.
+

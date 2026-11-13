@@ -109,6 +109,8 @@ section{padding-block:52px;border-top:1px solid var(--edge);scroll-margin-top:70
 .line.top{background:linear-gradient(90deg,rgba(217,180,108,.14),transparent)}
 .line.top .wt{color:var(--gold)}
 @media (max-width:760px){
+  /* Keep the hero copy below the mural on phones so the tagline stays readable. */
+  .pitch{margin-top:16px}
   .line{grid-template-columns:1fr auto;gap:12px 16px}
   .what{grid-column:1/-1;order:3}
   .line .btn{grid-column:1/-1;order:4;text-align:center}
