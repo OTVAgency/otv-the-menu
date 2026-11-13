@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Big Cory’s OTV The Menu: a concept preview of practical AI prompt packs, workflows, and hands-on help for business, content, and dad life.">
+<meta name="robots" content="noindex, nofollow">
+<title>OTV The Menu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Sedgwick+Ave+Display&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: luxury dispensary counter. Dad Life mural sprays in as the hero, then a shelf of flip-over mylar bags (front = brand, back = compliance label), then a price board by weight. Single dark look. */
+@property --r{syntax:"<percentage>";inherits:true;initial-value:80%}
+:root{
+  color-scheme:dark;
+  --ink:#070707; --shelf:#100f0e; --edge:#2a2621;
+  --chrome:#ece8e1; --dim:#9a9488; --gold:#d9b46c; --paper:#f1ead9; --print:#12100d;
+  --foil:linear-gradient(100deg,#a67c35,#f6e7b5 42%,#c9a15a 68%,#f3dc9c);
+  --display:"Anton","Impact","Arial Narrow",sans-serif;
+  --tag:"Sedgwick Ave Display","Marker Felt","Comic Sans MS",cursive;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--chrome);font:16px/1.55 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.95;margin:0;text-wrap:balance;letter-spacing:.01em}
+.tag{font:700 12px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-block;font:700 14px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:14px 20px;border:1px solid var(--gold);color:var(--ink);background:var(--gold);cursor:pointer;box-shadow:0 0 24px -6px var(--gold);transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px -6px var(--gold)}
+.btn.ghost{background:transparent;color:var(--gold);box-shadow:none}
+.btn:focus-visible,input:focus-visible,.bag:focus-visible{outline:2px solid var(--chrome);outline-offset:3px}
+.hand{font-family:var(--tag);text-transform:none;letter-spacing:0;display:inline-block;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .12em .1em 0;transform:rotate(-3deg)}
+
+/* nav */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(7,7,7,.78);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--edge)}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:10px}
+.mark{display:flex;align-items:center;gap:12px;font:400 28px/1 var(--display);letter-spacing:.03em;text-transform:uppercase;color:#fff}
+.mark img{height:52px;width:auto;filter:drop-shadow(0 4px 10px #000)}
+.open{font:700 12px/1 var(--mono);letter-spacing:.14em;color:var(--gold);display:flex;align-items:center;gap:8px}
+.open i{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+
+/* hero: the mural is masked by spray blobs whose radius (--r) grows with scroll */
+.hero{padding-block:20px 44px;display:grid}
+.mural{--r:80%;transition:--r .8s cubic-bezier(.2,.7,.2,1);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 calc(var(--r)*.75),transparent calc(var(--r)*1.15)),radial-gradient(circle at 17% 26%,#000 calc(var(--r)*.6),transparent calc(var(--r)*.95)),radial-gradient(circle at 82% 24%,#000 calc(var(--r)*.55),transparent var(--r)),radial-gradient(circle at 14% 78%,#000 calc(var(--r)*.5),transparent calc(var(--r)*.9)),radial-gradient(circle at 85% 76%,#000 calc(var(--r)*.6),transparent calc(var(--r)*.95)),radial-gradient(circle at 48% 96%,#000 calc(var(--r)*.4),transparent calc(var(--r)*.85));
+  mask-image:radial-gradient(circle at 50% 50%,#000 calc(var(--r)*.75),transparent calc(var(--r)*1.15)),radial-gradient(circle at 17% 26%,#000 calc(var(--r)*.6),transparent calc(var(--r)*.95)),radial-gradient(circle at 82% 24%,#000 calc(var(--r)*.55),transparent var(--r)),radial-gradient(circle at 14% 78%,#000 calc(var(--r)*.5),transparent calc(var(--r)*.9)),radial-gradient(circle at 85% 76%,#000 calc(var(--r)*.6),transparent calc(var(--r)*.95)),radial-gradient(circle at 48% 96%,#000 calc(var(--r)*.4),transparent calc(var(--r)*.85))}
+.mural img{display:block;width:100%;height:auto}
+.pitch{display:grid;gap:20px;margin-top:-28px;position:relative;justify-items:start}
+.pitch h1{font-size:clamp(52px,10.5vw,140px)}
+.pitch h1 .hand{font-size:1.15em;line-height:.9}
+.pitch p{max-width:58ch;font-size:19px;margin:0}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.legal{font:400 12px/1.4 var(--mono);color:var(--dim)}
+
+section{padding-block:52px;border-top:1px solid var(--edge);scroll-margin-top:70px}
+.head{display:grid;gap:10px;margin-bottom:28px}
+.head h2{font-size:clamp(36px,6vw,64px)}
+.head p{margin:0;color:var(--dim);max-width:60ch}
+
+/* bags: two faces stacked in one grid cell, flipped in 3D */
+.shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:24px}
+.bag{--h:45;perspective:1200px;cursor:pointer;border-radius:6px 6px 20px 20px}
+.flip{display:grid;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.8,.3,1)}
+.bag.on .flip{transform:rotateY(180deg)}
+@media (hover:hover){.bag:hover .flip,.bag:focus-visible .flip{transform:rotateY(180deg)}}
+.face{grid-area:1/1;position:relative;min-height:430px;border-radius:6px 6px 20px 20px;padding:54px 16px 16px;display:grid;gap:12px;-webkit-backface-visibility:hidden;backface-visibility:hidden;
+  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.09) 50%,transparent 62%),linear-gradient(160deg,#1d1b18,#0a0a0a);
+  box-shadow:inset 0 0 0 1px var(--gold),0 26px 44px -26px hsl(var(--h) 100% 50%)}
+.face::before{content:"";position:absolute;inset:0 0 auto;height:40px;border-radius:6px 6px 0 0;
+  background:radial-gradient(circle at 50% 46%,var(--ink) 0 7px,transparent 8px),repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 2px,transparent 2px 6px),var(--foil);
+  border-bottom:2px dashed rgba(0,0,0,.5)}
+/* front: full-bleed graffiti wall tinted per strain, big character, outlined tag name, small compliance window */
+.front{align-content:space-between;justify-items:center;text-align:center;gap:6px;padding:50px 12px 12px;
+  background:linear-gradient(170deg,hsl(var(--h) 95% 42% / .72),hsl(calc(var(--h) + 70) 90% 22% / .82) 55%,rgba(0,0,0,.9)),url(dadlife.jpg) var(--pos,50% 50%)/330% auto,#0a0a0a}
+.front .em{width:auto;max-width:86%;height:170px;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,.75));transform:rotate(-3deg)}
+.front .em.wook{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#14110d;box-shadow:0 0 0 3px var(--gold);margin-block:10px}
+.front h3{font-family:var(--tag);text-transform:none;letter-spacing:0;font-size:52px;line-height:.86;color:hsl(var(--h) 100% 62%);-webkit-text-stroke:7px #000;paint-order:stroke fill;text-shadow:4px 5px 0 #000;transform:rotate(-5deg);padding:8px 4px}
+.front .type{display:inline-block;font:700 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:#000;padding:5px 8px;border-radius:99px}
+.win{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#000;border:2px solid hsl(var(--h) 100% 60%);border-radius:8px;padding:8px 10px;font:700 10px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.win span:last-child{color:var(--dim)}
+.back{transform:rotateY(180deg);align-content:start;gap:10px}
+.sheet{background:var(--paper);color:var(--print);border-radius:3px 3px 12px 12px;padding:12px;display:grid;gap:9px;font-size:13px;line-height:1.35}
+.sheet h4{margin:0;font:400 24px/1 var(--display);text-transform:uppercase;border-bottom:6px solid var(--print);padding-bottom:6px}
+.sheet .sub{font:700 10px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.sheet p{margin:0}
+.pct{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline;border-bottom:1px solid var(--print);padding-bottom:6px;font:700 11px/1.2 var(--mono);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.pct i{grid-column:1/-1;height:6px;background:rgba(18,16,13,.16);display:block}
+.pct i::after{content:"";display:block;height:100%;width:var(--v);background:var(--print)}
+.warn{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center;border:2px solid var(--print);padding:6px 8px;font:700 9.5px/1.3 var(--mono);text-transform:uppercase}
+.warn span{width:28px;height:28px;display:grid;place-items:center;background:var(--print);color:var(--paper);font:400 13px/1 var(--display);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.batch{font:400 9.5px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:rgba(18,16,13,.7)}
+
+/* price board */
+.board{border:1px solid var(--edge);background:var(--shelf)}
+.line{display:grid;grid-template-columns:minmax(150px,1.1fr) 2.4fr auto auto;gap:20px;align-items:center;padding:22px 20px;border-top:1px solid var(--edge);transition:background .25s ease}
+.line:hover{background:rgba(217,180,108,.06)}
+.line:first-child{border-top:0}
+.line>*{min-width:0}
+.wt{font:400 clamp(30px,4vw,44px)/.95 var(--display);text-transform:uppercase;color:#fff}
+.wt small{display:block;margin-top:8px;font:700 11px/1 var(--mono);letter-spacing:.14em;color:var(--dim)}
+.wt .hand{font-size:24px;line-height:1;margin-left:10px;vertical-align:middle}
+.what{font-size:15px}
+.what b{color:#fff}
+.price{font:400 38px/1 var(--display);color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.price sup{font-size:.45em;vertical-align:top;position:relative;top:.1em;margin-left:1px}
+.line.top{background:linear-gradient(90deg,rgba(217,180,108,.14),transparent)}
+.line.top .wt{color:var(--gold)}
+@media (max-width:760px){
+  .line{grid-template-columns:1fr auto;gap:12px 16px}
+  .what{grid-column:1/-1;order:3}
+  .line .btn{grid-column:1/-1;order:4;text-align:center}
+}
+
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.why h3{font-size:26px;color:#fff;margin-bottom:8px}
+.why p{margin:0;color:var(--dim);font-size:15px}
+.sample{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;align-items:center}
+.sample h2{font-size:clamp(40px,7vw,84px)}
+.sample h2 .hand{font-size:1.15em}
+form{display:grid;gap:12px}
+label{font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+input{font:16px var(--body);padding:14px;background:var(--ink);border:1px solid var(--edge);color:#fff;width:100%}
+#note{font:400 13px/1.4 var(--mono);color:var(--gold);margin:0}
+footer{padding-block:28px 40px;border-top:1px solid var(--edge);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.by{display:flex;align-items:center;gap:12px}
+.by img{height:38px;width:auto;filter:drop-shadow(0 0 8px rgba(34,227,255,.4))}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (prefers-reduced-motion:reduce){.flip,.mural,.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <nav>
+    <div class="mark"><img src="stamp.png" alt="Big Cory"><span>Big Cory</span></div>
+    <div class="open"><i></i>MENU PREVIEW</div>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="mural" id="mural"><img src="dadlife.jpg" alt="Dad Life graffiti mural: Protector, Provider, Leader, Legacy, Mentor, Family First"></div>
+    <div class="pitch">
+      <div class="tag">Built by a dad · top-shelf AI + systems · sold by weight</div>
+      <h1>Knowledge by the <span class="hand">zip.</span></h1>
+      <p>Prompts, workflows, and systems I run every day in my business and at home. Small batch. Grab an eighth to try it. Work up to the pound when you want me to build it with you.</p>
+      <div class="row">
+        <a class="btn" href="#menu">See the menu</a>
+        <a class="btn ghost" href="#sample">First one's free</a>
+      </div>
+      <div class="legal">No plants. Nothing to smoke. 100% prompts, systems, and consulting.</div>
+    </div>
+  </header>
+
+  <section id="strains">
+    <div class="head">
+      <div class="tag">On the shelf</div>
+      <h2>Pick your strain</h2>
+      <p>Four packs. Each one is 10 prompts you paste in and use the same day. Flip a bag to read the label.</p>
+    </div>
+    <div class="shelf">
+
+      <article class="bag" style="--h:45;--pos:8% 12%" tabindex="0">
+        <div class="flip">
+          <div class="face front">
+            <img class="em" src="stamp.png" alt="Big Cory">
+            <div><div class="type">Starter · daytime</div><h3>Side Hustle Haze</h3></div>
+            <div class="win"><span>10 prompts</span><span>Difficulty 15%</span><span>Flip ↻</span></div>
+          </div>
+          <div class="face back"><div class="sheet">
+            <h4>Knowledge Facts</h4>
+            <div class="sub">Side Hustle Haze · 10 prompts per bag</div>
+            <p>Pick the idea, price it, and land the first customer.</p>
+            <div class="pct"><span>Difficulty</span><span>15%</span><i style="--v:15%"></i></div>
+            <div class="pct"><span>AI experience needed</span><span>0%</span><i style="--v:0%"></i></div>
+            <div class="pct"><span>Copy-paste ready</span><span>100%</span><i style="--v:100%"></i></div>
+            <div class="warn"><span>AI</span><div>Warning: may cause a second income. Keep away from excuses.</div></div>
+            <div class="batch">Batch BC-001 · Onset: one evening · Packed by Big Cory</div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="bag" style="--h:320;--pos:88% 55%" tabindex="0">
+        <div class="flip">
+          <div class="face front">
+            <img class="em" src="stamp.png" alt="Big Cory" style="transform:scaleX(-1) rotate(-3deg)">
+            <div><div class="type">Builder · heavy</div><h3>Startup Kush</h3></div>
+            <div class="win"><span>10 prompts</span><span>Difficulty 35%</span><span>Flip ↻</span></div>
+          </div>
+          <div class="face back"><div class="sheet">
+            <h4>Knowledge Facts</h4>
+            <div class="sub">Startup Kush · 10 prompts per bag</div>
+            <p>Shape your offer, organize client intake, and draft a basic quote and scope of work.</p>
+            <div class="pct"><span>Difficulty</span><span>35%</span><i style="--v:35%"></i></div>
+            <div class="pct"><span>AI experience needed</span><span>10%</span><i style="--v:10%"></i></div>
+            <div class="pct"><span>Copy-paste ready</span><span>100%</span><i style="--v:100%"></i></div>
+            <div class="warn"><span>AI</span><div>Warning: may cause you to open for business. Do not operate a 9-to-5 while using.</div></div>
+            <div class="batch">Batch BC-002 · Onset: one weekend · Packed by Big Cory</div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="bag" style="--h:188;--pos:12% 92%" tabindex="0">
+        <div class="flip">
+          <div class="face front">
+            <img class="em" src="wook26.png" alt="Good Wookn Out in gold aviators">
+            <div><div class="type">Creator · loud</div><h3>Content Runtz</h3></div>
+            <div class="win"><span>10 prompts</span><span>Difficulty 20%</span><span>Flip ↻</span></div>
+          </div>
+          <div class="face back"><div class="sheet">
+            <h4>Knowledge Facts</h4>
+            <div class="sub">Content Runtz · 10 prompts per bag</div>
+            <p>Hooks, scripts, captions, and a 30-day posting plan for social.</p>
+            <div class="pct"><span>Difficulty</span><span>20%</span><i style="--v:20%"></i></div>
+            <div class="pct"><span>AI experience needed</span><span>5%</span><i style="--v:5%"></i></div>
+            <div class="pct"><span>Copy-paste ready</span><span>100%</span><i style="--v:100%"></i></div>
+            <div class="warn"><span>AI</span><div>Warning: may cause consistent posting. Side effects include followers.</div></div>
+            <div class="batch">Batch BC-003 · Onset: one sitting · Packed by Big Cory</div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="bag" style="--h:95;--pos:50% 45%" tabindex="0">
+        <div class="flip">
+          <div class="face front">
+            <img class="em wook" src="wook.png" alt="Baby Wook in gold aviators">
+            <div><div class="type">Dads · smooth</div><h3>Dad Hours OG</h3></div>
+            <div class="win"><span>10 prompts</span><span>Difficulty 10%</span><span>Flip ↻</span></div>
+          </div>
+          <div class="face back"><div class="sheet">
+            <h4>Knowledge Facts</h4>
+            <div class="sub">Dad Hours OG · 10 prompts per bag</div>
+            <p>Meal plans, inbox, schedules, and the stuff I run to get time back.</p>
+            <div class="pct"><span>Difficulty</span><span>10%</span><i style="--v:10%"></i></div>
+            <div class="pct"><span>AI experience needed</span><span>0%</span><i style="--v:0%"></i></div>
+            <div class="pct"><span>Copy-paste ready</span><span>100%</span><i style="--v:100%"></i></div>
+            <div class="warn"><span>AI</span><div>Warning: may cause free evenings. Keep within reach of children.</div></div>
+            <div class="batch">Batch BC-004 · Onset: this week · Packed by Big Cory</div>
+          </div></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="head">
+      <div class="tag">Price board</div>
+      <h2>How much you need?</h2>
+      <p>Same product at every weight. The more you take, the more of the system you get, and the more of me.</p>
+    </div>
+    <div class="board">
+      <div class="line">
+        <div class="wt">The Eighth<small>Try it</small></div>
+        <div class="what"><b>One strain.</b> 10 prompts, copy and paste, with a one-page guide on how to use them.</div>
+        <div class="price">$24<sup>.99</sup></div>
+        <a class="btn ghost" href="#sample">Cop</a>
+      </div>
+      <div class="line">
+        <div class="wt">The Half<small>Half O</small></div>
+        <div class="what"><b>All four strains.</b> 40 prompts plus the social media templates I post with.</div>
+        <div class="price">$74<sup>.99</sup></div>
+        <a class="btn ghost" href="#sample">Cop</a>
+      </div>
+      <div class="line">
+        <div class="wt">The Zip<small>Full ounce</small></div>
+        <div class="what"><b>Go deeper.</b> Every pack, folder and workflow templates, plus my process for turning discovery notes into quotes, proposals, and scopes of work.</div>
+        <div class="price">$149<sup>.99</sup></div>
+        <a class="btn ghost" href="#sample">Cop</a>
+      </div>
+      <div class="line">
+        <div class="wt">The QP<small>Quarter pound</small></div>
+        <div class="what"><b>The Zip plus a 90-minute sit-down.</b> We set up your AI stack together, live, on your business.</div>
+        <div class="price">$499</div>
+        <a class="btn ghost" href="#sample">Book</a>
+      </div>
+      <div class="line top">
+        <div class="wt">Call the Plug<span class="hand">top shelf</span><small>The Pound · Work with Big Cory</small></div>
+        <div class="what"><b>Work directly with me.</b> We map out what you need, agree on the scope, and work together on the setup. Package details are being finalized.</div>
+        <div class="price">$1,499</div>
+        <a class="btn" href="#sample">Call the Plug</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="why">
+      <div><h3>Tested first</h3><p>Nothing goes on the shelf until I've used it on my own business, my clients, or my own house.</p></div>
+      <div><h3>No filler</h3><p>High-signal only. Every prompt does one job and you can use it the day you get it.</p></div>
+      <div><h3>Scales with you</h3><p>Start with prompts. When you outgrow them, I build the system. Same plug the whole way up.</p></div>
+    </div>
+  </section>
+
+  <section id="sample">
+    <div class="sample">
+      <div class="head" style="margin:0">
+        <div class="tag">The Joint · Free sample</div>
+        <h2>First one's <span class="hand">free.</span></h2>
+        <p>A beginner-friendly quick-start guide plus five connected prompts to explore your skills and shape a side-hustle offer. Learn which AI tool to start with, what information to give it, and how to improve the answers. Try it before you buy a pack.</p>
+      </div>
+      <form id="f">
+        <label for="email">Your email</label>
+        <input id="email" type="email" placeholder="you@email.com" required>
+        <button class="btn" type="submit">Send the sample</button>
+        <p id="note">Concept preview: the sample is in development. This form does not collect or send your email.</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="legal">
+    <div class="by"><img src="v.png" alt="OTV Agency V logo"><span>Big Cory · OTV Agency</span></div>
+    <span>Concept preview · Offers in development. Digital products and consulting only. No cannabis sold here.</span>
+  </footer>
+</div>
+<script>
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('note').textContent='Thanks for checking it out. The Joint is still being developed; no email was collected or sent.'});
+
+// Bags: hover flips on desktop (CSS); tap or Enter toggles everywhere else.
+var touch=window.matchMedia('(hover:none)').matches;
+document.querySelectorAll('.bag').forEach(function(b){
+  b.addEventListener('click',function(){if(touch)b.classList.toggle('on')});
+  b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();b.classList.toggle('on')}});
+});
+
+// Mural: spray radius follows scroll. Starts partly sprayed, finishes as you scroll past it.
+(function(){
+  var m=document.getElementById('mural');
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var tick=false;
+  function set(){tick=false;var p=Math.min(1,window.scrollY/(m.offsetHeight*.5||1));m.style.setProperty('--r',(30+p*50)+'%')}
+  m.style.transition='none';m.style.setProperty('--r','0%');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){m.style.transition='';set()})});
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(set)}},{passive:true});
+  window.addEventListener('resize',set);
+})();
+</script>
+
+</body>
+</html>
