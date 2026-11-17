@@ -9,6 +9,9 @@ let scrollFrame = 0;
 let wallReady = false;
 let displayedProgress = 0;
 let lastFrameTime = 0;
+const mobileWallQuery = window.matchMedia('(max-width: 760px), (pointer: coarse)');
+const wallSequence = createWallSequence(document.getElementById('wall-sequence'), scheduleWall);
+let sequenceActive = false;
 
 function clamp(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value));
@@ -20,11 +23,32 @@ function setNavigationHeight() {
   document.documentElement.style.setProperty('--nav-bottom', `${Math.ceil(nav.bottom)}px`);
 }
 
+function configureWallRenderer() {
+  // iPhone scrolling uses images, so no video-start gesture or preload is needed.
+  sequenceActive = mobileWallQuery.matches && wallSequence.supported && !motionPreference.matches;
+  body.classList.toggle('image-wall', sequenceActive);
+  wallSequence.setActive(sequenceActive);
+  if (sequenceActive || motionPreference.matches) {
+    wallVideo.pause();
+    if (wallVideo.getAttribute('src')) {
+      wallVideo.removeAttribute('src');
+      wallVideo.load();
+      wallReady = false;
+    }
+    if (sequenceActive) body.classList.remove('media-failed');
+  } else if (!wallVideo.getAttribute('src')) {
+    wallVideo.src = wallVideo.dataset.src;
+  }
+  scheduleWall();
+}
+
 function updateWall(timestamp) {
   scrollFrame = 0;
   if (motionPreference.matches || body.classList.contains('media-failed')) return;
-  // Progress spans the whole document. The fixed wall never changes its screen position.
-  const range = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  // The phone's portrait crop hides the earliest edge spray passes. Complete its
+  // painting over the first short scroll section, then keep the full mural fixed.
+  const pageRange = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  const range = sequenceActive ? Math.min(pageRange, Math.max(900, innerHeight * 1.25)) : pageRange;
   const target = clamp(scrollY / range, 0, 1);
   const elapsed = lastFrameTime ? Math.min(50, timestamp - lastFrameTime) : 16.7;
   lastFrameTime = timestamp;
@@ -33,13 +57,15 @@ function updateWall(timestamp) {
   displayedProgress = Math.abs(difference) < 0.00015 ? target : displayedProgress + difference * (1 - Math.exp(-elapsed / 100));
   if (Math.abs(target - displayedProgress) < 0.00015) displayedProgress = target;
   document.getElementById('wall-progress').style.width = `${displayedProgress * 100}%`;
-  if (wallReady && Number.isFinite(wallVideo.duration) && !wallVideo.seeking) {
+  if (sequenceActive) {
+    wallSequence.render(displayedProgress);
+  } else if (wallReady && Number.isFinite(wallVideo.duration) && !wallVideo.seeking) {
     const time = displayedProgress * Math.max(0, wallVideo.duration - 0.045);
     if (Math.abs(wallVideo.currentTime - time) > 0.008) wallVideo.currentTime = time;
   }
   // The completed background uses the detailed 4K still, avoiding idle decoder work.
-  body.classList.toggle('wall-complete', target === 1 && displayedProgress > 0.9998 && wallVideo.currentTime > wallVideo.duration - 0.12);
-  if (Math.abs(target - displayedProgress) > 0.00015 || wallVideo.seeking) {
+  body.classList.toggle('wall-complete', target === 1 && displayedProgress > 0.9998 && (sequenceActive || wallVideo.currentTime > wallVideo.duration - 0.12));
+  if (Math.abs(target - displayedProgress) > 0.00015 || (!sequenceActive && wallVideo.seeking)) {
     scheduleWall();
   } else {
     lastFrameTime = 0;
@@ -53,10 +79,11 @@ function scheduleWall() {
 wallVideo.addEventListener('loadeddata', () => { wallReady = true; scheduleWall(); });
 wallVideo.addEventListener('seeked', scheduleWall);
 wallVideo.addEventListener('error', () => {
-  body.classList.add('media-failed');
+  if (!sequenceActive) body.classList.add('media-failed');
   heroCopy.inert = false;
 });
 window.addEventListener('scroll', scheduleWall, { passive: true });
+mobileWallQuery.addEventListener('change', configureWallRenderer);
 window.addEventListener('resize', () => { setNavigationHeight(); scheduleWall(); });
 if ('ResizeObserver' in window) {
   const resize = new ResizeObserver(() => { setNavigationHeight(); scheduleWall(); });
@@ -270,10 +297,8 @@ function applyMotionPreference() {
       replayButton.hidden = true;
       showOpenedStill();
     }
-  } else {
-    if (!wallVideo.getAttribute('src')) wallVideo.src = wallVideo.dataset.src;
-    scheduleWall();
   }
+  configureWallRenderer();
 }
 motionPreference.addEventListener('change', applyMotionPreference);
 setNavigationHeight();

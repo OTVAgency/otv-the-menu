@@ -84,3 +84,19 @@ HD/packaging commit 67b409c02ba10b8f874393b8b06541a633bad937 deployed via https:
 Owner requested flipping from the opened view and explicitly deferred back-art regeneration until deliverables/outcomes/value review. Added Flip to back after opening, Back to front, pressed state and face visibility. Replay resets front and hides flip during opening; skip and reduced-motion stills also flip. Browser checked front return, replay reset, skip and reduced-motion transition=0. No new artwork or generation. Product Facts/value redesign pending; hours saved require evidence. See Planning/back-value-design-next.md.
 
 - Live follow-up caught browser cache mixing new HTML with old CSS/JS (movie ended but flip remained hidden; pack-turn computed position static). Versioned the stylesheet/script URLs to prevent mixed preview releases. No new artwork or changes to product claims.
+
+### Final live flip verification
+
+Published b56a3d6d0c4e3017324b156866f04405e579af5b; deployment succeeded at https://github.com/OTVAgency/otv-the-menu/actions/runs/44175924112 . Latest review URL: https://otvagency.github.io/otv-the-menu/?v=20261117-flip . Versioned HTML/CSS/JS and README matched current local bytes. Live browser verified relative pack-turn positioning, opening completion, in-view flip, loaded AI Za Product Facts back, pressed state and Back to front control, with no console errors. Browser left on the live back view. Phone/reduced-motion/replay/reset checks passed locally. Live proof saved as Preview/2026-11-17-fixed-hd-v3/live-opened-back-flip.jpg.
+
+Back regeneration remains explicitly on hold for owner review of deliverables, outcomes and value. Do not invent hours saved. No additional artwork generated for the flip/cache fixes. No outstanding implementation blocker; final product/value content, price and fulfillment integration remain pending.
+
+## 2026-11-17 — iPhone Safari background and unboxed mobile packs
+
+Owner reported the fixed background did not animate in iPhone Safari, requested removing the scroll-to-paint instruction, and supplied a screenshot asking to remove the rectangular photo/caption panels on mobile.
+
+- Added a mobile/touch HD image sequence instead of requiring paused video preload/seeking. Sixty 1920x1080 frames exported from the existing approved wall clip, WebP with JPEG fallback. Three concurrent image loads, nearby-frame prefetch/cache, blended drawing and existing time-based scroll easing. The mobile reveal completes during the first short scroll segment, then holds the existing 4K mural. Desktop retains video.
+- Removed the cue text. Added a mobile SVG silhouette mask around each unchanged approved pouch photograph and transparent caption/product-text backgrounds, retaining natural shadows and keyboard focus. No artwork regenerated; Product Facts redesign remains on hold.
+- Browser QA at 390x844 confirmed frame 0 to 21 to 59, then back to 33, while wall video src remained null/readyState 0; fixed wall top remained 0. Local no-video fixture has an intentionally unavailable video URL and still animates through images. Completion displays the 4K still. Checked 320px no overflow, desktop video mode, pack opening/back flip, and reduced-motion static fallback. Console clean. Physical iPhone Safari is reported by owner; verification used a phone-sized browser and no-video fixture, not direct access to their iPhone.
+- JS syntax, HTML/ARIA/local assets and all 120 frame files checked. No package manager or configured lint/test suite. No dependencies, paid generation, signup/checkout or outgoing client communications added.
+- Prepared publication to the same GitHub Pages preview with newly versioned page scripts/styles.

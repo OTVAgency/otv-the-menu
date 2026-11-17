@@ -170,13 +170,14 @@ section[id]{scroll-margin-top:110px}
 
 </style>
 
-<link rel="stylesheet" href="motion.css?v=20261117-flip">
+<link rel="stylesheet" href="motion.css?v=20261117-mobile-wall">
 </head>
 
 <body>
 <div id="site-wall" aria-hidden="true">
     <div class="wall-media" aria-hidden="true">
       <img class="wall-fallback" src="media/wall-finished-4k.jpg" alt="" width="3840" height="2160">
+      <canvas id="wall-sequence" class="wall-sequence" aria-hidden="true"></canvas>
       <video id="wall-video" class="wall-video" muted playsinline preload="auto" poster="media/wall-clean-hd.jpg" data-src="media/wall-reveal-hd60.mp4" tabindex="-1"></video>
     </div>
     <div class="hero-shade"></div>
@@ -199,7 +200,6 @@ section[id]{scroll-margin-top:110px}
       <div class="hero-tags"><span>7 prompts per pack</span><span>Templates + examples</span><span>Digital products</span></div>
     </div>
   </div>
-    <p class="wall-cue"><span aria-hidden="true">↓</span> Scroll to paint the wall</p>
     <div class="wall-progress" aria-hidden="true"><span id="wall-progress"></span></div>
   </div>
 </header>
@@ -320,6 +320,7 @@ section[id]{scroll-margin-top:110px}
   </div>
 </dialog>
 <script type="application/json" id="product-data">[{"id": "ai", "name": "AI Za", "lines": ["AI", "Za"], "category": "Learn AI", "subtitle": "Your AI business setup", "color": "#47dce6", "hue": "0deg", "result": "Give AI your business context and build a repeatable way to get useful answers.", "template": "Business context worksheet", "steps": ["Describe your business and the work you do.", "Define your audience and the help they need.", "Set your voice, preferences and boundaries.", "Ask AI to clarify what is missing.", "Work through one everyday business task.", "Check the answer and improve the weak parts.", "Save your reusable business context and prompts."]}, {"id": "hustle", "name": "Hustle Haze", "lines": ["Hustle", "Haze"], "category": "Build your offer", "subtitle": "Your one-page service offer", "color": "#c8ef38", "hue": "260deg", "result": "Turn your skills into a clear service offer you can put in front of a potential customer.", "template": "One-page offer builder", "steps": ["Take stock of your skills, experience and time.", "Choose a specific problem you can help solve.", "Describe the person you want to help.", "Build a focused first version of your offer.", "Define deliverables and clear boundaries.", "Work through a starting price using your own inputs.", "Draft a message to test the offer in a real conversation."]}, {"id": "content", "name": "Content Kush", "lines": ["Content", "Kush"], "category": "Market your business", "subtitle": "Your content bank + 30-day plan", "color": "#cf82ff", "hue": "65deg", "result": "Build a bank of ideas and shape it into 30 days of planned content for your business.", "template": "Content bank + planning sheet", "steps": ["Choose your audience and content goal.", "Define your voice and useful content pillars.", "Gather real experiences, offers and customer questions.", "Build a reusable bank of content ideas.", "Choose 30 topics with a clear purpose.", "Develop hooks, formats, scripts and captions.", "Organize the calendar and your next batch of content."]}, {"id": "paperwork", "name": "Paperwork OG", "lines": ["Paperwork", "OG"], "category": "Run your business", "subtitle": "Your proposal + client starter kit", "color": "#e9bb65", "hue": "160deg", "result": "Shape an inquiry into a proposal and scope, then prepare simple intake and onboarding.", "template": "Proposal, scope + client starters", "steps": ["Capture the inquiry and the client’s goal.", "Ask discovery questions to fill the gaps.", "Define deliverables, exclusions and responsibilities.", "Build a quote using your effort, rates and costs.", "Draft and check the proposal and scope of work.", "Adapt the intake questions to the agreed project.", "Prepare the welcome message and onboarding next steps."]}]</script>
-<script src="motion.js?v=20261117-flip"></script>
+<script src="mobile-wall-renderer.js?v=20261117-mobile-wall"></script>
+<script src="motion.js?v=20261117-mobile-wall"></script>
 <noscript><style>.wall-video{display:none}.wall-fallback{opacity:1}.hero-scroll{height:auto}.hero-scene{position:relative;min-height:0}.wall-cue{display:none}.product-actions{display:none}</style><p class="wrap legal">Enable JavaScript to open the packs and view their labels.</p></noscript>
 </body></html>

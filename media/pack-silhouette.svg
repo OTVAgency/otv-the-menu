@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1536" viewBox="0 0 1024 1536">
+  <!-- Website-only silhouette: retain the exact approved printed pack pixels. -->
+  <path fill="white" d="M119 53H896C922 53 938 72 938 101V143C916 143 915 166 938 166L891 1404C890 1434 864 1453 830 1455H205C168 1453 138 1436 135 1404L82 166C105 166 105 143 82 143V102C82 74 96 53 119 53Z"/>
+</svg>
