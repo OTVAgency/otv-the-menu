@@ -74,6 +74,9 @@ const openingStatus = document.getElementById('opening-status');
 const pauseButton = document.getElementById('pack-pause');
 const replayButton = document.getElementById('pack-replay');
 const skipButton = document.getElementById('pack-skip');
+const flipButton = document.getElementById('pack-flip');
+const packTurn = document.getElementById('pack-turn');
+const backPhoto = document.getElementById('pack-back-photo');
 let lastDetailsTrigger = null;
 let lastPackTrigger = null;
 let currentPack = null;
@@ -129,8 +132,17 @@ function showDetails(key, trigger, labelOnly = false) {
   syncDialogScrollLock();
 }
 
+function resetPackFace() {
+  packTurn.classList.remove('is-back');
+  packTurn.querySelector('.pack-front-face').setAttribute('aria-hidden', 'false');
+  packTurn.querySelector('.pack-back-face').setAttribute('aria-hidden', 'true');
+  flipButton.setAttribute('aria-pressed', 'false');
+  flipButton.textContent = 'Flip to back ↻';
+}
+
 function revealPackContents(message = 'Your pack is open. Here’s what’s inside.') {
   packContents.hidden = false;
+  flipButton.hidden = false;
   openingStatus.textContent = message;
   skipButton.hidden = true;
 }
@@ -147,6 +159,8 @@ function showOpenedStill() {
 }
 
 function playPack() {
+  resetPackFace();
+  flipButton.hidden = true;
   packStill.hidden = true;
   packVideo.hidden = false;
   pauseButton.hidden = false;
@@ -169,6 +183,10 @@ function openPack(key, trigger) {
   const product = products.find((item) => item.id === key);
   if (!product) return;
   currentPack = product;
+  resetPackFace();
+  flipButton.hidden = true;
+  backPhoto.src = `media/pack-${key}-back-v3.jpg`;
+  backPhoto.alt = `${product.name} 7g Product Facts back`;
   lastPackTrigger = trigger;
   document.getElementById('pack-title').textContent = product.name;
   document.getElementById('pack-category').textContent = product.category;
@@ -234,6 +252,13 @@ replayButton.addEventListener('click', () => {
   playPack();
 });
 skipButton.addEventListener('click', () => showOpenedStill());
+flipButton.addEventListener('click', () => {
+  const back = packTurn.classList.toggle('is-back');
+  packTurn.querySelector('.pack-front-face').setAttribute('aria-hidden', String(back));
+  packTurn.querySelector('.pack-back-face').setAttribute('aria-hidden', String(!back));
+  flipButton.setAttribute('aria-pressed', String(back));
+  flipButton.textContent = back ? 'Back to front ↻' : 'Flip to back ↻';
+});
 
 function applyMotionPreference() {
   body.classList.toggle('reduced-motion', motionPreference.matches);

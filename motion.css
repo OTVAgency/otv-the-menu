@@ -47,3 +47,6 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offse
 @media(max-width:360px){.hero-copy.pitch{padding-top:28px;gap:12px}.hero-copy h1{font-size:49px}.hero-copy p{font-size:14px}.hero-copy .tag{font-size:8px}.hero-copy .btn{font-size:9px;padding:12px 9px}.hero-tags span{font-size:8px}.hero-copy .row{gap:8px}}
 .reduced-motion .wall-video,.media-failed .wall-video{display:none}.reduced-motion .wall-fallback,.media-failed .wall-fallback{opacity:1}.reduced-motion .wall-progress,.media-failed .wall-progress,.reduced-motion .wall-cue{display:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Opened pack turns within the same view; current back artwork stays a draft. */
+.opening-stage{perspective:1400px}.pack-turn{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.2,.75,.2,1)}.pack-turn.is-back{transform:rotateY(180deg)}.pack-front-face,.pack-back-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}.pack-back-face{transform:rotateY(180deg)}#pack-flip{color:var(--gold);border-color:var(--gold)}.reduced-motion .pack-turn{transition:none}

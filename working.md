@@ -76,3 +76,9 @@ Owner requested a fixed wall behind the full page, higher resolution and smoothe
 - Read the label shows a matching physical back and accessible HTML facts. Kept pause/replay/skip, keyboard, Escape/focus restoration, reduced-motion and media failure stills. No runtime dependencies added.
 - Checked fixed top=0 at hero, shelf and footer; document-progress seeking; 4K still at completion; all eight image texts; native video frames and physical lettering; all five Full HD/60 exports decode. JS syntax and HTML/local references checked. Browser desktop/phone completion, 320/390/768 layouts, physical backs and reduced-motion no-video behavior verified without horizontal overflow.
 - Prepared deployment to the same main/root GitHub Pages preview. No changes to signup/checkout connections or client communications. Final product files/prices remain pending.
+
+### Verified HD publication and in-view back flip — 2026-11-17
+
+HD/packaging commit 67b409c02ba10b8f874393b8b06541a633bad937 deployed via https://github.com/OTVAgency/otv-the-menu/actions/runs/44174288098 . All 24 files matched local bytes; wall range requests returned HTTP 206. Live Chrome verified fixed top=0, 1920x1080 video, AI Za name, completed 1080x1440 opening, matching back and no errors. Clean 3840x2160/60fps archive saved as Preview/2026-11-17-fixed-hd-v3/wall-reveal-clean-4k60.mp4.
+
+Owner requested flipping from the opened view and explicitly deferred back-art regeneration until deliverables/outcomes/value review. Added Flip to back after opening, Back to front, pressed state and face visibility. Replay resets front and hides flip during opening; skip and reduced-motion stills also flip. Browser checked front return, replay reset, skip and reduced-motion transition=0. No new artwork or generation. Product Facts/value redesign pending; hours saved require evidence. See Planning/back-value-design-next.md.
