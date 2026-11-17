@@ -1,25 +1,25 @@
 # OTV The Menu — Concept Preview
 
-Big Cory / OTV Agency concept site for solopreneurs and AI beginners.
+Big Cory / OTV Agency digital product storefront for solopreneurs and AI beginners.
 
-## Current layout
+## Current experience
 
-Four working-name 7g digital products: AI OG, Hustle Haze, Content Kush, and Paperwork OG. Each has seven connected guided prompts, a simple template or resource, and a completed example planned. Pouches flip on click, tap, Enter or Space to a Product Facts back. Outline dialogs show the seven-step sequence. The Whole Zip bundles all four packs and 28 prompts. The Free Pre-Roll introduces the main AI tools.
+A clean concrete wall sits behind the hero copy. Scrolling scrubs the approved graffiti reveal forward or backward; pausing scrolling holds the frame. Click, tap, Enter or Space on any named 7g pouch to play its tear-open animation, look inside and reveal its seven-step outline, simple resource and example. All four product names and lowercase 7g labels are perspective-tracked onto the moving packs. Read the label opens the Product Facts separately. Replay, pause, skip, Escape, focus restoration, media-error stills and reduced-motion stills are supported.
 
-Names, final product files, and pricing are still in development. This is a layout review, not a sales launch. The signup form is a local demonstration: it has no endpoint, stores no emails, sends nothing, and creates no subscriptions. Checkout is not connected.
+Four working names: AI OG, Hustle Haze, Content Kush, Paperwork OG. Whole Zip includes all four and 28 guided prompts. Free Pre-Roll is the beginner AI guide/newsletter signup concept.
 
-## Local preview
+Product names, final downloads and pricing remain in development. The signup form has no endpoint or storage, sends nothing and creates no subscriptions. Checkout is not connected.
 
-Run `python3 -m http.server 8867` in this directory. No installation or build is required. No package manager, lint or test suite is configured.
+## Preview and hosting
 
-## Publication
+Buildless HTML/CSS/JavaScript. No dependencies, build step, package manager, configured lint or test suite. Use a static server with HTTP byte-range support for local video-scrubbing checks; GitHub Pages supports video byte ranges.
 
-GitHub Pages serves `main` from the repository root, using relative asset paths. No custom domain is configured.
+GitHub Pages serves main from the repository root with relative asset paths. No custom domain.
 
 https://otvagency.github.io/otv-the-menu/
 
-## Artwork
+## Media
 
-The shared realistic mylar pouch skin is in `pouch-skin-v2.png`. Product names, labels and color treatments remain editable in HTML/CSS. No portraits, stamps or characters are printed on the packs. The existing brand navigation and Dad Life mural remain.
+Production media is under media/. The cleaned hero is an optimized all-intra-frame silent H.264 clip for responsive seeking. Four small silent H.264 pouch clips are fetched only when a pack opens. Sealed/opened stills support posters and reduced motion. Existing source artwork remains preserved.
 
 Copyright 2026 On The Verge LLC. All rights reserved.
