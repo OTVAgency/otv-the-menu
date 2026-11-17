@@ -26,5 +26,16 @@ Pending: refine paid inclusions, create and verify actual products, approve addi
 - Repository: https://github.com/OTVAgency/otv-the-menu
 - GitHub Pages configured for main / root, HTTPS, no custom domain.
 - Share URL: https://otvagency.github.io/otv-the-menu/
-- Final live verification pending deployment.
+- Verified live: HTTP 200; deployed HTML and all five artwork files match the local source byte for byte. Live page opened in Chrome with the revised offers and preview notices.
+- Published site commit: 5d8f6a2d58cd11f978583067ca67a61408895dce. Pages run: https://github.com/OTVAgency/otv-the-menu/actions/runs/43518078588
+- These final verification notes are local handoff updates; the published product source is unchanged.
 
+
+## 2026-11-17 — 7g product layout
+
+- Owner approved updating this same public preview with four 7g packs, Product Facts backs, Whole Zip and Free Pre-Roll. Lowercase g used.
+- Replaced old pouch portraits and weight/price ladder with reusable realistic mylar art and editable labels. Four working names: AI OG, Hustle Haze, Content Kush, Paperwork OG.
+- Each planned product has seven guided prompts, a simple resource and a completed example; Whole Zip contains all four and 28 prompts. Names, final files and prices remain under review.
+- Added click/tap/native-button keyboard flips, seven-step outline dialogs, focus restoration, Escape close, reduced-motion support and explicit signup preview notices. No backend, checkout, subscription or outgoing communications.
+- Local QA passed: JavaScript syntax; IDs and local references; all images; exactly four seven-step outlines; no form endpoint/storage. Browser checked 320, 390, 768, 1101 and default desktop widths, no horizontal overflow or clipped facts. Enter flip, Escape/focus return, bundle outline and non-submitting signup status verified. Console had no errors. No dependencies added; no configured lint/test suite.
+- Deployment to existing main/root Pages preview prepared; verify live bytes and render after push.
