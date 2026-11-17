@@ -174,6 +174,13 @@ section[id]{scroll-margin-top:110px}
 </head>
 
 <body>
+<div id="site-wall" aria-hidden="true">
+    <div class="wall-media" aria-hidden="true">
+      <img class="wall-fallback" src="media/wall-finished-4k.jpg" alt="" width="3840" height="2160">
+      <video id="wall-video" class="wall-video" muted playsinline preload="auto" poster="media/wall-clean-hd.jpg" data-src="media/wall-reveal-hd60.mp4" tabindex="-1"></video>
+    </div>
+    <div class="hero-shade"></div>
+</div>
 <div class="preview-ribbon">Concept preview · Package names, contents and pricing are being refined.</div>
 <div class="bar"><div class="wrap"><nav aria-label="Main navigation">
   <a class="mark" href="#top"><img src="stamp.png" alt="Big Cory"><span>Big Cory</span></a>
@@ -183,11 +190,7 @@ section[id]{scroll-margin-top:110px}
 <main id="top">
   <header class="hero-scroll" id="wall-reveal" aria-label="Graffiti wall reveal">
   <div class="hero-scene">
-    <div class="wall-media" aria-hidden="true">
-      <img class="wall-fallback" src="media/wall-finished.jpg" alt="" width="1280" height="720">
-      <video id="wall-video" class="wall-video" muted playsinline preload="auto" poster="media/wall-clean.jpg" data-src="media/wall-reveal-v2.mp4" tabindex="-1"></video>
-    </div>
-    <div class="hero-shade"></div>
+
     <div class="hero-inner wrap"><div class="pitch hero-copy" id="hero-copy">
       <div class="tag">Built by Big Cory · Made for one-person businesses</div>
       <h1>Knowledge by the <span class="hand">zip.</span></h1>
@@ -207,11 +210,11 @@ section[id]{scroll-margin-top:110px}
       <div class="pack-frame">
         <div class="flip">
           <div class="pack-face pack-front" aria-hidden="true">
-            <img class="pack-art" src="media/pack-ai-sealed.jpg" alt="" loading="lazy" width="720" height="960">
+            <img class="pack-art" src="media/pack-ai-front-v3.jpg" alt="" loading="lazy" width="1024" height="1536">
 
           </div>
           <div class="pack-face pack-back" id="ai-facts" aria-hidden="true">
-            <div class="facts"><h4>Product Facts</h4><p class="facts-name">AI OG · Learn AI</p>
+            <div class="facts"><h4>Product Facts</h4><p class="facts-name">AI Za · Learn AI</p>
               <dl><div><dt>Pack size</dt><dd>7g</dd></div><div><dt>Guided prompts</dt><dd>7</dd></div><div><dt>Format</dt><dd>Digital</dd></div></dl>
               <h5>Made to help you</h5><p>Give AI your business context and build a repeatable way to get useful answers.</p>
               <h5>Inside the pack</h5><ul><li>7 connected prompts</li><li>Business context worksheet</li><li>A completed example</li></ul>
@@ -219,15 +222,15 @@ section[id]{scroll-margin-top:110px}
             </div>
           </div>
         </div>
-        <button class="pack-toggle" type="button" data-open="ai" aria-label="Open AI OG 7g pack" aria-controls="pack-dialog" aria-haspopup="dialog"><span class="sr-only">Open AI OG 7g pack</span></button>
+        <button class="pack-toggle" type="button" data-open="ai" aria-label="Open AI Za 7g pack" aria-controls="pack-dialog" aria-haspopup="dialog"><span class="sr-only">Open AI Za 7g pack</span></button>
       </div>
       <span class="flip-hint" aria-hidden="true">Tap to rip it open ↗</span>
-      <div class="product-meta"><div class="tag">Learn AI</div><h3 id="ai-name">AI OG</h3><p>Your AI business setup.</p><div class="product-actions"><button class="text-button" type="button" data-label="ai" aria-haspopup="dialog">Read the label</button><button class="text-button" type="button" data-details="ai" aria-haspopup="dialog">7-step outline ↗</button></div></div>
+      <div class="product-meta"><div class="tag">Learn AI</div><h3 id="ai-name">AI Za</h3><p>Your AI business setup.</p><div class="product-actions"><button class="text-button" type="button" data-label="ai" aria-haspopup="dialog">Read the label</button><button class="text-button" type="button" data-details="ai" aria-haspopup="dialog">7-step outline ↗</button></div></div>
     </article><article class="product" data-id="hustle" style="--accent:#c8ef38;--hue:260deg" aria-labelledby="hustle-name">
       <div class="pack-frame">
         <div class="flip">
           <div class="pack-face pack-front" aria-hidden="true">
-            <img class="pack-art" src="media/pack-hustle-sealed.jpg" alt="" loading="lazy" width="720" height="960">
+            <img class="pack-art" src="media/pack-hustle-front-v3.jpg" alt="" loading="lazy" width="1024" height="1536">
 
           </div>
           <div class="pack-face pack-back" id="hustle-facts" aria-hidden="true">
@@ -247,7 +250,7 @@ section[id]{scroll-margin-top:110px}
       <div class="pack-frame">
         <div class="flip">
           <div class="pack-face pack-front" aria-hidden="true">
-            <img class="pack-art" src="media/pack-content-sealed.jpg" alt="" loading="lazy" width="720" height="960">
+            <img class="pack-art" src="media/pack-content-front-v3.jpg" alt="" loading="lazy" width="1024" height="1536">
 
           </div>
           <div class="pack-face pack-back" id="content-facts" aria-hidden="true">
@@ -267,7 +270,7 @@ section[id]{scroll-margin-top:110px}
       <div class="pack-frame">
         <div class="flip">
           <div class="pack-face pack-front" aria-hidden="true">
-            <img class="pack-art" src="media/pack-paperwork-sealed.jpg" alt="" loading="lazy" width="720" height="960">
+            <img class="pack-art" src="media/pack-paperwork-front-v3.jpg" alt="" loading="lazy" width="1024" height="1536">
 
           </div>
           <div class="pack-face pack-back" id="paperwork-facts" aria-hidden="true">
@@ -286,7 +289,7 @@ section[id]{scroll-margin-top:110px}
     </article></div>
     <div class="bundle" id="zip" aria-labelledby="zip-title">
       <div><div class="tag">The value pack</div><h2 id="zip-title">The Whole <span class="hand">Zip.</span></h2><p>Get all four 7g packs in one bundle. Business context, your offer, your content plan and client paperwork—together on one shelf.</p><div class="bundle-count"><strong>28</strong><span>guided prompts<br>across 4 packs</span></div><button class="btn" type="button" data-details="zip" aria-haspopup="dialog">Look inside the Zip</button><p class="bundle-note">Bundle pricing is under review. This is a concept preview.</p></div>
-      <ul class="bundle-list"><li>AI OG <small>7g · 7 prompts</small></li><li>Hustle Haze <small>7g · 7 prompts</small></li><li>Content Kush <small>7g · 7 prompts</small></li><li>Paperwork OG <small>7g · 7 prompts</small></li></ul>
+      <ul class="bundle-list"><li>AI Za <small>7g · 7 prompts</small></li><li>Hustle Haze <small>7g · 7 prompts</small></li><li>Content Kush <small>7g · 7 prompts</small></li><li>Paperwork OG <small>7g · 7 prompts</small></li></ul>
     </div>
   </section>
   <section aria-label="How the packs work"><div class="how">
@@ -308,7 +311,7 @@ section[id]{scroll-margin-top:110px}
   <div class="pack-dialog-bar"><span class="tag" id="pack-tag">7g · 7 guided prompts</span><button class="dialog-close" type="button" id="pack-close">Close ✕</button></div>
   <div class="opening-layout">
     <div class="opening-visual">
-      <div class="opening-stage"><video id="pack-video" muted playsinline preload="none" aria-label="Pouch tear-open animation"></video><img id="pack-still" alt="Opened product pouch" width="720" height="960" hidden></div>
+      <div class="opening-stage"><video id="pack-video" muted playsinline preload="none" aria-label="Pouch tear-open animation"></video><img id="pack-still" alt="Opened product pouch" width="1024" height="1536" hidden></div>
       <div class="opening-controls"><button class="text-button" id="pack-pause" type="button">Pause</button><button class="text-button" id="pack-replay" type="button">Rip it open again ↻</button><button class="text-button" id="pack-skip" type="button">See what's inside →</button></div>
     </div>
     <div class="opening-copy"><div class="tag" id="pack-category"></div><h2 id="pack-title"></h2><p id="pack-result"></p><p class="opening-status" id="opening-status" role="status" aria-live="polite">Opening your pack…</p>
@@ -316,7 +319,7 @@ section[id]{scroll-margin-top:110px}
     </div>
   </div>
 </dialog>
-<script type="application/json" id="product-data">[{"id": "ai", "name": "AI OG", "lines": ["AI", "OG"], "category": "Learn AI", "subtitle": "Your AI business setup", "color": "#47dce6", "hue": "0deg", "result": "Give AI your business context and build a repeatable way to get useful answers.", "template": "Business context worksheet", "steps": ["Describe your business and the work you do.", "Define your audience and the help they need.", "Set your voice, preferences and boundaries.", "Ask AI to clarify what is missing.", "Work through one everyday business task.", "Check the answer and improve the weak parts.", "Save your reusable business context and prompts."]}, {"id": "hustle", "name": "Hustle Haze", "lines": ["Hustle", "Haze"], "category": "Build your offer", "subtitle": "Your one-page service offer", "color": "#c8ef38", "hue": "260deg", "result": "Turn your skills into a clear service offer you can put in front of a potential customer.", "template": "One-page offer builder", "steps": ["Take stock of your skills, experience and time.", "Choose a specific problem you can help solve.", "Describe the person you want to help.", "Build a focused first version of your offer.", "Define deliverables and clear boundaries.", "Work through a starting price using your own inputs.", "Draft a message to test the offer in a real conversation."]}, {"id": "content", "name": "Content Kush", "lines": ["Content", "Kush"], "category": "Market your business", "subtitle": "Your content bank + 30-day plan", "color": "#cf82ff", "hue": "65deg", "result": "Build a bank of ideas and shape it into 30 days of planned content for your business.", "template": "Content bank + planning sheet", "steps": ["Choose your audience and content goal.", "Define your voice and useful content pillars.", "Gather real experiences, offers and customer questions.", "Build a reusable bank of content ideas.", "Choose 30 topics with a clear purpose.", "Develop hooks, formats, scripts and captions.", "Organize the calendar and your next batch of content."]}, {"id": "paperwork", "name": "Paperwork OG", "lines": ["Paperwork", "OG"], "category": "Run your business", "subtitle": "Your proposal + client starter kit", "color": "#e9bb65", "hue": "160deg", "result": "Shape an inquiry into a proposal and scope, then prepare simple intake and onboarding.", "template": "Proposal, scope + client starters", "steps": ["Capture the inquiry and the client’s goal.", "Ask discovery questions to fill the gaps.", "Define deliverables, exclusions and responsibilities.", "Build a quote using your effort, rates and costs.", "Draft and check the proposal and scope of work.", "Adapt the intake questions to the agreed project.", "Prepare the welcome message and onboarding next steps."]}]</script>
+<script type="application/json" id="product-data">[{"id": "ai", "name": "AI Za", "lines": ["AI", "Za"], "category": "Learn AI", "subtitle": "Your AI business setup", "color": "#47dce6", "hue": "0deg", "result": "Give AI your business context and build a repeatable way to get useful answers.", "template": "Business context worksheet", "steps": ["Describe your business and the work you do.", "Define your audience and the help they need.", "Set your voice, preferences and boundaries.", "Ask AI to clarify what is missing.", "Work through one everyday business task.", "Check the answer and improve the weak parts.", "Save your reusable business context and prompts."]}, {"id": "hustle", "name": "Hustle Haze", "lines": ["Hustle", "Haze"], "category": "Build your offer", "subtitle": "Your one-page service offer", "color": "#c8ef38", "hue": "260deg", "result": "Turn your skills into a clear service offer you can put in front of a potential customer.", "template": "One-page offer builder", "steps": ["Take stock of your skills, experience and time.", "Choose a specific problem you can help solve.", "Describe the person you want to help.", "Build a focused first version of your offer.", "Define deliverables and clear boundaries.", "Work through a starting price using your own inputs.", "Draft a message to test the offer in a real conversation."]}, {"id": "content", "name": "Content Kush", "lines": ["Content", "Kush"], "category": "Market your business", "subtitle": "Your content bank + 30-day plan", "color": "#cf82ff", "hue": "65deg", "result": "Build a bank of ideas and shape it into 30 days of planned content for your business.", "template": "Content bank + planning sheet", "steps": ["Choose your audience and content goal.", "Define your voice and useful content pillars.", "Gather real experiences, offers and customer questions.", "Build a reusable bank of content ideas.", "Choose 30 topics with a clear purpose.", "Develop hooks, formats, scripts and captions.", "Organize the calendar and your next batch of content."]}, {"id": "paperwork", "name": "Paperwork OG", "lines": ["Paperwork", "OG"], "category": "Run your business", "subtitle": "Your proposal + client starter kit", "color": "#e9bb65", "hue": "160deg", "result": "Shape an inquiry into a proposal and scope, then prepare simple intake and onboarding.", "template": "Proposal, scope + client starters", "steps": ["Capture the inquiry and the client’s goal.", "Ask discovery questions to fill the gaps.", "Define deliverables, exclusions and responsibilities.", "Build a quote using your effort, rates and costs.", "Draft and check the proposal and scope of work.", "Adapt the intake questions to the agreed project.", "Prepare the welcome message and onboarding next steps."]}]</script>
 <script src="motion.js"></script>
-<noscript><style>.wall-video{display:none}.wall-fallback{opacity:1}.hero-scroll{height:auto}.hero-scene{position:relative;min-height:740px}.wall-cue{display:none}.product-actions{display:none}</style><p class="wrap legal">Enable JavaScript to open the packs and view their labels.</p></noscript>
+<noscript><style>.wall-video{display:none}.wall-fallback{opacity:1}.hero-scroll{height:auto}.hero-scene{position:relative;min-height:0}.wall-cue{display:none}.product-actions{display:none}</style><p class="wrap legal">Enable JavaScript to open the packs and view their labels.</p></noscript>
 </body></html>

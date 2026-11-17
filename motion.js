@@ -1,53 +1,48 @@
 'use strict';
 
-// The same product data drives the shelf, labels, outlines and open-pack contents.
 const products = JSON.parse(document.getElementById('product-data').textContent);
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 const body = document.body;
-const hero = document.getElementById('wall-reveal');
-const wallVideo = document.getElementById('wall-video');
 const heroCopy = document.getElementById('hero-copy');
-let wallTarget = 0;
+const wallVideo = document.getElementById('wall-video');
 let scrollFrame = 0;
 let wallReady = false;
+let displayedProgress = 0;
+let lastFrameTime = 0;
 
 function clamp(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value));
 }
 
 function setNavigationHeight() {
-  const navigation = document.querySelector('.bar').getBoundingClientRect();
-  const height = navigation.height;
-  document.documentElement.style.setProperty('--nav-height', `${Math.ceil(height)}px`);
-  document.documentElement.style.setProperty('--nav-bottom', `${Math.ceil(navigation.bottom)}px`);
+  const nav = document.querySelector('.bar').getBoundingClientRect();
+  document.documentElement.style.setProperty('--nav-height', `${Math.ceil(nav.height)}px`);
+  document.documentElement.style.setProperty('--nav-bottom', `${Math.ceil(nav.bottom)}px`);
 }
 
-function seekWallToLatestScroll() {
-  // Queue the latest desired position instead of issuing overlapping video seeks.
-  if (!wallReady || wallVideo.seeking || motionPreference.matches) return;
-  if (Math.abs(wallVideo.currentTime - wallTarget) > 0.025) {
-    wallVideo.currentTime = wallTarget;
-  }
-}
-
-function updateWall() {
+function updateWall(timestamp) {
   scrollFrame = 0;
   if (motionPreference.matches || body.classList.contains('media-failed')) return;
-  const scene = hero.querySelector('.hero-scene');
-  const navigation = document.querySelector('.bar').getBoundingClientRect();
-  const navigationHeight = navigation.height;
-  document.documentElement.style.setProperty('--nav-bottom', `${Math.ceil(navigation.bottom)}px`);
-  const range = Math.max(1, hero.offsetHeight - scene.offsetHeight);
-  const progress = clamp((navigationHeight - hero.getBoundingClientRect().top) / range, 0, 1);
-  const copyOpacity = clamp((0.88 - progress) / 0.28, 0, 1);
-  hero.style.setProperty('--copy-opacity', copyOpacity.toFixed(3));
-  hero.style.setProperty('--copy-offset', `${-32 * progress}px`);
-  hero.style.setProperty('--shade-opacity', (0.22 + 0.78 * copyOpacity).toFixed(3));
-  heroCopy.inert = copyOpacity < 0.08;
-  document.getElementById('wall-progress').style.width = `${progress * 100}%`;
-  if (Number.isFinite(wallVideo.duration)) {
-    wallTarget = progress * Math.max(0, wallVideo.duration - 0.07);
-    seekWallToLatestScroll();
+  // Progress spans the whole document. The fixed wall never changes its screen position.
+  const range = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  const target = clamp(scrollY / range, 0, 1);
+  const elapsed = lastFrameTime ? Math.min(50, timestamp - lastFrameTime) : 16.7;
+  lastFrameTime = timestamp;
+  // Time-based easing stays consistent on different refresh-rate displays.
+  const difference = target - displayedProgress;
+  displayedProgress = Math.abs(difference) < 0.00015 ? target : displayedProgress + difference * (1 - Math.exp(-elapsed / 100));
+  if (Math.abs(target - displayedProgress) < 0.00015) displayedProgress = target;
+  document.getElementById('wall-progress').style.width = `${displayedProgress * 100}%`;
+  if (wallReady && Number.isFinite(wallVideo.duration) && !wallVideo.seeking) {
+    const time = displayedProgress * Math.max(0, wallVideo.duration - 0.045);
+    if (Math.abs(wallVideo.currentTime - time) > 0.008) wallVideo.currentTime = time;
+  }
+  // The completed background uses the detailed 4K still, avoiding idle decoder work.
+  body.classList.toggle('wall-complete', target === 1 && displayedProgress > 0.9998 && wallVideo.currentTime > wallVideo.duration - 0.12);
+  if (Math.abs(target - displayedProgress) > 0.00015 || wallVideo.seeking) {
+    scheduleWall();
+  } else {
+    lastFrameTime = 0;
   }
 }
 
@@ -55,20 +50,18 @@ function scheduleWall() {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateWall);
 }
 
-wallVideo.addEventListener('loadeddata', () => {
-  wallReady = true;
-  scheduleWall();
-});
-wallVideo.addEventListener('seeked', seekWallToLatestScroll);
+wallVideo.addEventListener('loadeddata', () => { wallReady = true; scheduleWall(); });
+wallVideo.addEventListener('seeked', scheduleWall);
 wallVideo.addEventListener('error', () => {
-  // A still mural keeps the hero useful if media cannot be loaded or decoded.
   body.classList.add('media-failed');
   heroCopy.inert = false;
 });
 window.addEventListener('scroll', scheduleWall, { passive: true });
 window.addEventListener('resize', () => { setNavigationHeight(); scheduleWall(); });
 if ('ResizeObserver' in window) {
-  new ResizeObserver(() => { setNavigationHeight(); scheduleWall(); }).observe(document.querySelector('.bar'));
+  const resize = new ResizeObserver(() => { setNavigationHeight(); scheduleWall(); });
+  resize.observe(document.querySelector('.bar'));
+  resize.observe(document.getElementById('top'));
 }
 
 // Both dialogs use native focus trapping, Escape handling and backdrop behavior.
@@ -113,6 +106,7 @@ function showDetails(key, trigger, labelOnly = false) {
   const facts = document.getElementById('dialog-facts');
   const list = document.getElementById('dialog-list');
   facts.replaceChildren();
+  detailsDialog.classList.toggle('showing-label', labelOnly);
   facts.hidden = !labelOnly;
   list.hidden = labelOnly;
   document.getElementById('dialog-tag').textContent = key === 'zip' ? '4 packs · 28 guided prompts' : '7g · 7 guided prompts';
@@ -120,7 +114,13 @@ function showDetails(key, trigger, labelOnly = false) {
   document.getElementById('dialog-summary').textContent = labelOnly ? 'Read the Product Facts on the back of your pack.' : key === 'zip' ? 'All four focused packs, including their templates and examples, in one digital bundle.' : product.result;
   if (labelOnly) {
     const label = document.getElementById(`${key}-facts`).querySelector('.facts').cloneNode(true);
-    facts.appendChild(label);
+    const photo = document.createElement('img');
+    photo.className = 'label-art';
+    photo.src = `media/pack-${key}-back-v3.jpg`;
+    photo.alt = `${product.name} 7g pouch back with Product Facts`;
+    photo.width = 1024;
+    photo.height = 1536;
+    facts.append(photo, label);
   } else {
     appendList(list, key === 'zip' ? products.map((item) => `${item.name} — ${item.subtitle} · 7 guided prompts`) : product.steps);
   }
@@ -139,7 +139,7 @@ function showOpenedStill() {
   if (!currentPack) return;
   packVideo.pause();
   packVideo.hidden = true;
-  packStill.src = `media/pack-${currentPack.id}-opened.jpg`;
+  packStill.src = `media/pack-${currentPack.id}-opened-v3.jpg`;
   packStill.alt = `${currentPack.name} 7g pouch opened to show the resource cards inside`;
   packStill.hidden = false;
   pauseButton.hidden = true;
@@ -175,7 +175,7 @@ function openPack(key, trigger) {
   document.getElementById('pack-result').textContent = product.result;
   document.getElementById('pack-template').textContent = product.template;
   appendList(document.getElementById('pack-outline'), product.steps);
-  packVideo.poster = `media/pack-${key}-sealed.jpg`;
+  packVideo.poster = `media/pack-${key}-front-v3.jpg`;
   packStill.hidden = true;
   packVideo.hidden = false;
   replayButton.hidden = motionPreference.matches;
@@ -186,7 +186,7 @@ function openPack(key, trigger) {
     showOpenedStill();
     return;
   }
-  const source = `media/pack-${key}-open.mp4`;
+  const source = `media/pack-${key}-open-v3.mp4`;
   if (packVideo.getAttribute('src') !== source) {
     packVideo.src = source;
   } else {

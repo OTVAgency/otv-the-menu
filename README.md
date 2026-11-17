@@ -4,22 +4,24 @@ Big Cory / OTV Agency digital product storefront for solopreneurs and AI beginne
 
 ## Current experience
 
-A clean concrete wall sits behind the hero copy. Scrolling scrubs the approved graffiti reveal forward or backward; pausing scrolling holds the frame. Click, tap, Enter or Space on any named 7g pouch to play its tear-open animation, look inside and reveal its seven-step outline, simple resource and example. All four product names and lowercase 7g labels are perspective-tracked onto the moving packs. Read the label opens the Product Facts separately. Replay, pause, skip, Escape, focus restoration, media-error stills and reduced-motion stills are supported.
+One full-viewport wall is fixed behind the entire page: hero, product shelf, bundle, guide signup and footer. The page scrolls normally over it. Scroll progress across the document controls a clean-start graffiti reveal with time-based easing and queued video seeks. Its web export is 1920 x 1080 at 60fps, derived from a 3840 x 2160 finishing master. At the end, the finished 4K still replaces the paused video. Reduced motion and video errors also use that still.
 
-Four working names: AI OG, Hustle Haze, Content Kush, Paperwork OG. Whole Zip includes all four and 28 guided prompts. Free Pre-Roll is the beginner AI guide/newsletter signup concept.
+Four matching printed 7g packs: AI Za, Hustle Haze, Content Kush and Paperwork OG. New reference-matched fronts and Product Facts backs use bold brush lettering, realistic foil and color accents. The opening videos are generated from the finished printed fronts, replacing the former separately tracked lettering. The web versions are 1080 x 1440 at 60fps.
 
-Product names, final downloads and pricing remain in development. The signup form has no endpoint or storage, sends nothing and creates no subscriptions. Checkout is not connected.
+Click/tap/Enter/Space opens a pack, tears the top, opens its mouth and shows its contents. Read the label shows the physical back photograph plus readable HTML Product Facts. Pause, replay, skip, native dialogs, Escape/focus restoration and still fallbacks are retained. Whole Zip includes all four and 28 prompts.
 
-## Preview and hosting
+Names, final downloads and prices remain under development. Signup has no endpoint or storage and sends nothing; checkout is not connected.
 
-Buildless HTML/CSS/JavaScript. No dependencies, build step, package manager, configured lint or test suite. Use a static server with HTTP byte-range support for local video-scrubbing checks; GitHub Pages supports video byte ranges.
+## Local preview and hosting
 
-GitHub Pages serves main from the repository root with relative asset paths. No custom domain.
+Buildless HTML/CSS/JavaScript; no runtime dependency or installation. No package manager, configured lint or test suite. Use a byte-range-capable static server for local media seeking checks.
+
+GitHub Pages serves main from the repository root. Relative assets; no custom domain.
 
 https://otvagency.github.io/otv-the-menu/
 
-## Media
+## Media and production records
 
-Production media is under media/. The cleaned hero is an optimized all-intra-frame silent H.264 clip for responsive seeking. Four small silent H.264 pouch clips are fetched only when a pack opens. Sealed/opened stills support posters and reduced motion. Existing source artwork remains preserved.
+Current production files are in media/ with v3/HD names; earlier assets remain preserved. Full-size PNG front/back art, source movies, quotes/prompts, rejected/replacement attempt record and QA are saved in the OTV Agency product folder.
 
 Copyright 2026 On The Verge LLC. All rights reserved.

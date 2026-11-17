@@ -57,3 +57,22 @@ Owner approved both motion studies and requested wall cleanup, product names and
 - Browser QA: clean initial frame, forward/backward scroll seeking with paused video, normal completion, all four correct names/media, replay/pause/skip, Product Facts, Space/Enter, Escape and focus return. Checked 320, 390, 768 and desktop widths without horizontal overflow. Local reduced-motion fixture requested no video sources and revealed stills/contents immediately. Console clean. A range-capable local server was needed for seeking; no production workaround or new dependency.
 - No changes to newsletter/checkout behavior; no subscriptions, sending or client notifications. Names/prices/downloads remain under review. No configured lint/test suite; JS syntax, HTML/reference and media decode checks run.
 - Deploy prepared for existing main/root Pages site. Final live hash, range and UI verification follows publication.
+
+### Motion preview live verification — 2026-11-17
+
+Published commit 89dd0cf2aa3fb3bf1ced422bc3f4ffbb2743033f to https://otvagency.github.io/otv-the-menu/ . Pages deployment succeeded: https://github.com/OTVAgency/otv-the-menu/actions/runs/44169680253 . Verified all 20 requested HTML/CSS/JS/media/image files return HTTP 200 and match local bytes. A Range bytes=0-1 request on the wall video returns HTTP 206 with the correct Content-Range and two bytes.
+
+Live Chrome check confirmed clean initial wall at time 0, scroll-driven paused seek to 2.372718 seconds at 47.7248% progress, and successful AI OG labeled pouch completion with its seven steps and contents visible. No horizontal overflow or console errors. Saved live wall and opened-pack screenshots with deployment hashes in Preview/2026-11-17-motion-site-v2. Browser left open on the live pack preview.
+
+Completed: wall cleanup, scroll-controlled background, four tracked names/7g labels, tear/open/peek interaction, Product Facts and accessible controls, verified publication. Pending: owner refinements, final product files and pricing, and separately authorized newsletter/checkout integration. No blocker; no client messages or subscriptions created.
+
+## 2026-11-17 — full-page fixed HD wall and AI Za packaging
+
+Owner requested a fixed wall behind the full page, higher resolution and smoother motion. Then flagged the sliding pack label, selected the supplied bold brush/foil pack reference, requested matching fronts/backs for all packs, and settled the former AI OG name on AI Za (latest spelling, superseding AI Zaza).
+
+- Created eight matching front/back product images with built-in image generation; preserved PNG originals and prompts. Each pack has lowercase 7g and seven prompts. Names: AI Za, Hustle Haze, Content Kush, Paperwork OG. No mascots, characters or portraits on packs.
+- Generated a 3840 x 2160 wall finishing source and exported a clean-start 1920 x 1080 / 60fps website clip plus a 4K finished still. The fixed viewport background is outside the hero, behind the whole document. Removed the sticky hero pause; the page scrolls normally and the painting spans document progress. Timestamp-based easing smooths scroll changes.
+- Rebuilt all four pouch animations from the finished printed fronts, eliminating the separately tracked text overlays. Full HD / 60fps web exports; resource cards visible inside. Content Kush initial job was rejected by the provider; one simpler benign product brief retry succeeded. Quotes/attempts are recorded; actual charges/refunds not verified.
+- Read the label shows a matching physical back and accessible HTML facts. Kept pause/replay/skip, keyboard, Escape/focus restoration, reduced-motion and media failure stills. No runtime dependencies added.
+- Checked fixed top=0 at hero, shelf and footer; document-progress seeking; 4K still at completion; all eight image texts; native video frames and physical lettering; all five Full HD/60 exports decode. JS syntax and HTML/local references checked. Browser desktop/phone completion, 320/390/768 layouts, physical backs and reduced-motion no-video behavior verified without horizontal overflow.
+- Prepared deployment to the same main/root GitHub Pages preview. No changes to signup/checkout connections or client communications. Final product files/prices remain pending.
