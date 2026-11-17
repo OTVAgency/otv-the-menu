@@ -114,3 +114,9 @@ Back product-facts redesign and outcome/value copy remain pending the user's rev
 Owner approved the cleaner mobile design and requested a slower scroll-linked wall reveal: one flick reached AI Za with the mural already complete. Expanded the mobile painting distance from 1.25 viewport heights (minimum 900px) to 4 viewport heights (minimum 2400px), bounded by document scroll length. Softened mobile catch-up from 100ms to 220ms in both scroll directions. Native page scrolling and desktop timing retain their existing behavior. Versioned motion.js as 20261117-slower-wall to refresh browser caches.
 
 JS syntax passed; no package manager or configured lint/test suite. Local phone layout 390x844: at scroll1224px (where the old version completed), new reveal settles at36.26%, frame21 of59; background video src remains null. At scroll3756px painting reaches completion; fixed wall top0. No new dependencies or art regeneration.
+
+
+## 2026-11-17 — approved cinematic layout publication
+Owner approved the full floating-packs-v6 review and explicitly requested publishing it for phone review. Published package will retain all approved artwork and product copy; extend silhouette cutouts, shadows and strain-color glow to desktop; center mobile labels on small translucent panels; paint the fixed wall automatically, then maintain a subtle18-second drift loop with a separate scroll-linked pan and116%-to100% cinematic pullback. Reduced-motion static fallback retained. No new dependencies.
+
+Release files in Preview/2026-11-17-cinematic-live-v7. Replaced review-only ribbon, versioned JS and new floating-packs.css, updated repository README. Review copy retained. JS syntax, HTML asset references and CSS structure checks passed; no configured lint/test suite. Prior review browser QA covered phone widths320/390, desktop, automatic painting, scroll camera, loop, pouch opening/back flip and reduced-motion fallback. Final live verification follows deployment.

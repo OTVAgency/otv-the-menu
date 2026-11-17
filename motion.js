@@ -12,6 +12,19 @@ let lastFrameTime = 0;
 const mobileWallQuery = window.matchMedia('(max-width: 760px), (pointer: coarse)');
 const wallSequence = createWallSequence(document.getElementById('wall-sequence'), scheduleWall);
 let sequenceActive = false;
+let paintElapsed = 0;
+let cinematicProgress = 0;
+const paintDurationMilliseconds = 8000;
+const wallMedia = document.querySelector('.wall-media');
+
+function startWallPlayback() {
+  if (sequenceActive || motionPreference.matches || !wallVideo.getAttribute('src')) return;
+  // Muted inline video paints itself; scrolling only moves the camera on the page.
+  wallVideo.playbackRate = 0.65;
+  wallVideo.play().then(scheduleWall).catch(() => {
+    body.classList.add('media-failed');
+  });
+}
 
 function clamp(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value));
@@ -39,35 +52,39 @@ function configureWallRenderer() {
   } else if (!wallVideo.getAttribute('src')) {
     wallVideo.src = wallVideo.dataset.src;
   }
+  startWallPlayback();
   scheduleWall();
 }
 
 function updateWall(timestamp) {
   scrollFrame = 0;
-  if (motionPreference.matches || body.classList.contains('media-failed')) return;
-  // Spread phone painting over several swipes so a single flick cannot finish
-  // the mural before someone starts browsing the packs. Desktop uses the full page.
-  const pageRange = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-  const range = sequenceActive ? Math.min(pageRange, Math.max(2400, innerHeight * 4)) : pageRange;
-  const target = clamp(scrollY / range, 0, 1);
+  if (motionPreference.matches || body.classList.contains('media-failed')) {
+    wallMedia.style.transform = 'none';
+    return;
+  }
   const elapsed = lastFrameTime ? Math.min(50, timestamp - lastFrameTime) : 16.7;
   lastFrameTime = timestamp;
-  // Give phone flicks a softer catch-up in either direction, independent of
-  // display refresh rate. This affects the wall only, preserving native scrolling.
-  const catchUpMilliseconds = sequenceActive ? 220 : 100;
-  const difference = target - displayedProgress;
-  displayedProgress = Math.abs(difference) < 0.00015 ? target : displayedProgress + difference * (1 - Math.exp(-elapsed / catchUpMilliseconds));
-  if (Math.abs(target - displayedProgress) < 0.00015) displayedProgress = target;
-  document.getElementById('wall-progress').style.width = `${displayedProgress * 100}%`;
+  const pageRange = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  const cameraTarget = clamp(scrollY / pageRange, 0, 1);
+  // A slow pullback and small vertical pan make depth follow the reader's pace.
+  cinematicProgress += (cameraTarget - cinematicProgress) * (1 - Math.exp(-elapsed / 240));
+  const scale = 1.16 - cinematicProgress * 0.16;
+  const pan = (1 - cinematicProgress) * 1.5;
+  wallMedia.style.transform = `translateY(${pan}%) scale(${scale})`;
+  wallMedia.dataset.cameraProgress = cinematicProgress.toFixed(4);
+
   if (sequenceActive) {
+    // Start the phone timeline after its first frame arrives, without a video gesture.
+    const frame = Number(document.getElementById('wall-sequence').dataset.frame ?? -1);
+    if (frame >= 0) paintElapsed = Math.min(paintDurationMilliseconds, paintElapsed + elapsed);
+    displayedProgress = paintElapsed / paintDurationMilliseconds;
     wallSequence.render(displayedProgress);
-  } else if (wallReady && Number.isFinite(wallVideo.duration) && !wallVideo.seeking) {
-    const time = displayedProgress * Math.max(0, wallVideo.duration - 0.045);
-    if (Math.abs(wallVideo.currentTime - time) > 0.008) wallVideo.currentTime = time;
+  } else if (wallReady && Number.isFinite(wallVideo.duration)) {
+    displayedProgress = clamp(wallVideo.currentTime / wallVideo.duration, 0, 1);
   }
-  // The completed background uses the detailed 4K still, avoiding idle decoder work.
-  body.classList.toggle('wall-complete', target === 1 && displayedProgress > 0.9998 && (sequenceActive || wallVideo.currentTime > wallVideo.duration - 0.12));
-  if (Math.abs(target - displayedProgress) > 0.00015 || (!sequenceActive && wallVideo.seeking)) {
+  document.getElementById('wall-progress').style.width = `${displayedProgress * 100}%`;
+  body.classList.toggle('wall-complete', displayedProgress >= 0.9998);
+  if (displayedProgress < 1 || Math.abs(cameraTarget - cinematicProgress) > 0.00015) {
     scheduleWall();
   } else {
     lastFrameTime = 0;
@@ -78,7 +95,8 @@ function scheduleWall() {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateWall);
 }
 
-wallVideo.addEventListener('loadeddata', () => { wallReady = true; scheduleWall(); });
+wallVideo.addEventListener('loadeddata', () => { wallReady = true; startWallPlayback(); scheduleWall(); });
+wallVideo.addEventListener('ended', scheduleWall);
 wallVideo.addEventListener('seeked', scheduleWall);
 wallVideo.addEventListener('error', () => {
   if (!sequenceActive) body.classList.add('media-failed');

@@ -1,0 +1,73 @@
+/* Approved floating-pack layout and cinematic wall motion. */
+/* Mask the photo backdrop at every size; glow and shadow follow the pouch edge. */
+.product .pack-frame {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+  filter: drop-shadow(0 20px 17px #000c);
+}
+.product .pack-art {
+  -webkit-mask: url('media/pack-silhouette.svg') center / 100% 100% no-repeat;
+  mask: url('media/pack-silhouette.svg') center / 100% 100% no-repeat;
+  filter: drop-shadow(0 0 1px var(--accent));
+}
+/* A blurred light pool behind each pouch adds depth without a rectangular card. */
+.product .pack-frame::before {
+  content: '';
+  position: absolute;
+  inset: 15% 12% 6%;
+  z-index: -1;
+  background: var(--accent);
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: .23;
+  pointer-events: none;
+}
+.product .flip-hint {
+  background: transparent;
+  padding: 10px 0 12px;
+  margin-top: 0;
+  text-shadow: 0 2px 8px #000;
+}
+.product .pack-toggle { border-radius: 0; }
+.product .pack-toggle:hover { box-shadow: none; }
+@media (max-width: 760px) {
+  /* Center the entire label group, keeping a compact surface for readability. */
+  .product .product-meta {
+    width: calc(100% - 32px);
+    max-width: 300px;
+    margin: 3px auto 0;
+    padding: 20px 16px 22px;
+    text-align: center;
+    background: linear-gradient(145deg, #101213e8, #08090ace);
+    border: 1px solid #ffffff15;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px #0004;
+    text-shadow: 0 2px 8px #0008;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .product .product-meta h3 { margin: 10px 0; }
+  .product .product-meta p { min-height: 0; margin-bottom: 14px; }
+  .product .product-actions { justify-content: center; gap: 16px; }
+  .product .product-actions .text-button { text-align: center; }
+  .product .pack-frame::before { opacity: .17; filter: blur(26px); }
+}
+
+/* The paint plays once; the fixed wall camera pulls back as the page scrolls. */
+.wall-media { transform-origin: 50% 50%; will-change: transform; }
+.reduced-motion .wall-media, .media-failed .wall-media { transform: none !important; will-change: auto; }
+
+/* Once painted, the mural keeps a gentle ambient loop below the scroll camera. */
+@keyframes mural-drift {
+  0%, 100% { transform: translate(-.25%, .15%) scale(1.018); }
+  50% { transform: translate(.25%, -.15%) scale(1.032); }
+}
+.wall-complete .wall-fallback {
+  animation: mural-drift 18s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+.reduced-motion .wall-fallback { animation: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .wall-complete .wall-fallback { animation: none; transform: none; }
+}
