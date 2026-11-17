@@ -100,3 +100,17 @@ Owner reported the fixed background did not animate in iPhone Safari, requested 
 - Browser QA at 390x844 confirmed frame 0 to 21 to 59, then back to 33, while wall video src remained null/readyState 0; fixed wall top remained 0. Local no-video fixture has an intentionally unavailable video URL and still animates through images. Completion displays the 4K still. Checked 320px no overflow, desktop video mode, pack opening/back flip, and reduced-motion static fallback. Console clean. Physical iPhone Safari is reported by owner; verification used a phone-sized browser and no-video fixture, not direct access to their iPhone.
 - JS syntax, HTML/ARIA/local assets and all 120 frame files checked. No package manager or configured lint/test suite. No dependencies, paid generation, signup/checkout or outgoing client communications added.
 - Prepared publication to the same GitHub Pages preview with newly versioned page scripts/styles.
+
+
+### Mobile release live verification — 2026-11-17
+Published commit `531d102916ab1c365dcbe2547454862f3c70e78b`; GitHub Pages run 44190313711 succeeded. All 125 changed runtime files (HTML, CSS, two scripts, silhouette mask and 120 image frames) match the tested local copies byte for byte.
+
+Live 390 x 844 browser check: image-wall active; background-video src remains unset; first swipe advances frame 0 to 20; completion reaches frame 59 and finished still opacity 1; reverse scroll returns to frame 39. Fixed wall stays at viewport top 0. Cue absent; pack photo, caption and metadata backgrounds transparent; silhouette mask applied; no horizontal overflow. Screenshots and deployment/browser records saved in Preview/2026-11-17-mobile-fix-v4/. Local checks also covered 320px width, desktop video, reduced motion, unavailable-video fixture, pouch opening and back flipping. This is phone-layout testing in Chrome, not a physical iPhone Safari verification.
+
+Back product-facts redesign and outcome/value copy remain pending the user's review. No artwork regeneration, new dependencies, checkout activation or newsletter transmission performed.
+
+
+## 2026-11-17 — slower mobile wall reveal
+Owner approved the cleaner mobile design and requested a slower scroll-linked wall reveal: one flick reached AI Za with the mural already complete. Expanded the mobile painting distance from 1.25 viewport heights (minimum 900px) to 4 viewport heights (minimum 2400px), bounded by document scroll length. Softened mobile catch-up from 100ms to 220ms in both scroll directions. Native page scrolling and desktop timing retain their existing behavior. Versioned motion.js as 20261117-slower-wall to refresh browser caches.
+
+JS syntax passed; no package manager or configured lint/test suite. Local phone layout 390x844: at scroll1224px (where the old version completed), new reveal settles at36.26%, frame21 of59; background video src remains null. At scroll3756px painting reaches completion; fixed wall top0. No new dependencies or art regeneration.

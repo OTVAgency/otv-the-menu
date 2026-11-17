@@ -45,16 +45,18 @@ function configureWallRenderer() {
 function updateWall(timestamp) {
   scrollFrame = 0;
   if (motionPreference.matches || body.classList.contains('media-failed')) return;
-  // The phone's portrait crop hides the earliest edge spray passes. Complete its
-  // painting over the first short scroll section, then keep the full mural fixed.
+  // Spread phone painting over several swipes so a single flick cannot finish
+  // the mural before someone starts browsing the packs. Desktop uses the full page.
   const pageRange = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-  const range = sequenceActive ? Math.min(pageRange, Math.max(900, innerHeight * 1.25)) : pageRange;
+  const range = sequenceActive ? Math.min(pageRange, Math.max(2400, innerHeight * 4)) : pageRange;
   const target = clamp(scrollY / range, 0, 1);
   const elapsed = lastFrameTime ? Math.min(50, timestamp - lastFrameTime) : 16.7;
   lastFrameTime = timestamp;
-  // Time-based easing stays consistent on different refresh-rate displays.
+  // Give phone flicks a softer catch-up in either direction, independent of
+  // display refresh rate. This affects the wall only, preserving native scrolling.
+  const catchUpMilliseconds = sequenceActive ? 220 : 100;
   const difference = target - displayedProgress;
-  displayedProgress = Math.abs(difference) < 0.00015 ? target : displayedProgress + difference * (1 - Math.exp(-elapsed / 100));
+  displayedProgress = Math.abs(difference) < 0.00015 ? target : displayedProgress + difference * (1 - Math.exp(-elapsed / catchUpMilliseconds));
   if (Math.abs(target - displayedProgress) < 0.00015) displayedProgress = target;
   document.getElementById('wall-progress').style.width = `${displayedProgress * 100}%`;
   if (sequenceActive) {
